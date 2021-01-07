@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,15 +19,18 @@ public class Project implements Serializable{
     private String name;
     private String description;
     private User owner;
+    private List<User> assignees;
 
     public Project() {
     }
 
-    public Project(int id, String name, String description, User owner) {
+    public Project(int id, String name, String description, User owner, User assignee) {
         this.id = id;
         this.name = name;
         this.description = description;
         this.owner = owner;
+        this.assignees = new ArrayList<>();
+        this.assignees.add(assignee);
     }
     
     public int getId() {
@@ -59,6 +64,15 @@ public class Project implements Serializable{
     public void setOwner(User owner) {
         this.owner = owner;
     }
+
+    public List<User> getAssignees() {
+        return assignees;
+    }
+
+    public void setAssignees(List<User> assignees) {
+        this.assignees = assignees;
+    }
+    
 
     @Override
     public int hashCode() {
