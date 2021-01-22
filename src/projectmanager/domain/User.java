@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author EMA
  */
-public class User implements Serializable{
+public class User implements GenericEntity{
     private int id;
     private String firstname;
     private String lastname;
@@ -113,5 +113,20 @@ public class User implements Serializable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getTableName() {
+        return "user";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "username, password, email, firstname, lastname";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'"+username+"','"+password+"','"+email+"','"+firstname+"','"+lastname+"'";
     }
 }

@@ -13,7 +13,7 @@ import java.util.Objects;
  *
  * @author Ema
  */
-public class ProjectTask implements Serializable{
+public class ProjectTask implements GenericEntity{
     private int id;
     private Project project;
     private Date createdOn;
@@ -157,6 +157,21 @@ public class ProjectTask implements Serializable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getTableName() {
+        return "project_task";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "projectId, createdOn, description, taskId, assigneeProjectId, assigneeId, statusId, authorId";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return project.getId()+","+new java.sql.Date(new Date().getTime())+",'"+description+"',"+task.getId()+","+project.getId()+","+assignee.getId()+","+status.ordinal()+","+author.getId();
     }
     
     

@@ -15,5 +15,5 @@ public interface GenericEntity extends Serializable {
 
     String getInsertValues();
 
-    void setId(Long id);
+    void setId(int id);
 }

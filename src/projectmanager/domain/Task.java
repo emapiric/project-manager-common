@@ -12,7 +12,7 @@ import java.util.Objects;
  *
  * @author Ema
  */
-public class Task implements Serializable{
+public class Task implements GenericEntity{
     private int id;
     private String name;
     private String description;
@@ -86,6 +86,21 @@ public class Task implements Serializable{
             return false;
         }
         return true;
+    }
+
+    @Override
+    public String getTableName() {
+        return "task";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "name,description";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'"+name+"','"+description+"'";
     }
     
     

@@ -14,7 +14,7 @@ import java.util.Objects;
  *
  * @author EMA
  */
-public class Project implements Serializable{
+public class Project implements GenericEntity{
     private int id;
     private String name;
     private String description;
@@ -114,6 +114,21 @@ public class Project implements Serializable{
     @Override
     public String toString() {
         return "Project{" + "id=" + id + ", name=" + name + ", description=" + description + ", owner=" + owner + '}';
+    }
+
+    @Override
+    public String getTableName() {
+        return "project";
+    }
+
+    @Override
+    public String getColumnNamesForInsert() {
+        return "name, description, userId";
+    }
+
+    @Override
+    public String getInsertValues() {
+        return "'"+name+"','"+description+"',"+owner.getId();
     }
     
 }
