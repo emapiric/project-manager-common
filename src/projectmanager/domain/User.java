@@ -129,4 +129,18 @@ public class User implements GenericEntity{
     public String getInsertValues() {
         return "'"+username+"','"+password+"','"+email+"','"+firstname+"','"+lastname+"'";
     }
+
+    @Override
+    public String setAtrValue() {
+        return "username=" + (username == null ? null : "'" + username + "'")
+                 +"', " + "password=" + (password == null ? null : "'" + password + "'")
+                 +"', " + "email=" + (email == null ? null : "'" + email + "'")
+                 +"', " + "firstname=" + (firstname == null ? null : "'" + firstname + "'")
+                 +"', " + "lastname=" + (lastname == null ? null : "'" + lastname + "'");
+    }
+
+    @Override
+    public String getWhereCondition() {
+        return "id="+id;
+    }
 }

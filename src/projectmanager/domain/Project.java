@@ -131,4 +131,14 @@ public class Project implements GenericEntity{
         return "'"+name+"','"+description+"',"+owner.getId();
     }
     
+    @Override
+    public String setAtrValue() {
+       return "name=" + (name == null ? null : "'" + name + "'") + ", " + "description=" + (description == null ? null : "'" + description + "'");
+    }
+
+    @Override
+    public String getWhereCondition() {
+        return "id="+id;
+    }
+    
 }

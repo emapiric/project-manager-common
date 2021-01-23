@@ -171,7 +171,18 @@ public class ProjectTask implements GenericEntity{
 
     @Override
     public String getInsertValues() {
-        return project.getId()+","+new java.sql.Date(new Date().getTime())+",'"+description+"',"+task.getId()+","+project.getId()+","+assignee.getId()+","+status.ordinal()+","+author.getId();
+        return project.getId()+",'"+new java.sql.Date(new Date().getTime())+"','"+description+"',"+task.getId()+","+project.getId()+","+assignee.getId()+","+status.ordinal()+","+author.getId();
+    }
+
+    @Override
+    public String setAtrValue() {
+        return "description=" + (description == null ? null : "'" + description + "'")
+                +", taskId="+task.getId()+", assigneeId="+assignee.getId()+", statusId="+status.ordinal();
+    }
+
+    @Override
+    public String getWhereCondition() {
+        return "id="+id;
     }
     
     

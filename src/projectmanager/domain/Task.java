@@ -102,6 +102,16 @@ public class Task implements GenericEntity{
     public String getInsertValues() {
         return "'"+name+"','"+description+"'";
     }
+
+    @Override
+    public String setAtrValue() {
+        return "name='" + name + "', " + "description=" + (description == null ? null : "'" + description + "'");
+    }
+
+    @Override
+    public String getWhereCondition() {
+        return "id="+id;
+    }
     
     
 }
