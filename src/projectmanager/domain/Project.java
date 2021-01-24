@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -22,6 +24,10 @@ public class Project implements GenericEntity{
     private List<User> assignees;
 
     public Project() {
+    }
+    
+    public Project(int id) {
+        this.id = id;
     }
 
     public Project(int id, String name, String description, User owner, User assignee) {
@@ -139,6 +145,17 @@ public class Project implements GenericEntity{
     @Override
     public String getWhereCondition() {
         return "id="+id;
+    }
+
+    @Override
+    public String getJoin() {
+        return " INNER JOIN USER ON (project.userId = user.id)";
+    }
+
+    @Override
+    public GenericEntity getNewRecord(ResultSet rs) throws SQLException {
+        User user = new User(rs.getInt("user.id"),rs.getString("user.firstname"),rs.getString("user.lastname"),rs.getString("user.username"),rs.getString("user.password"),rs.getString("user.email"));
+        return new Project(rs.getInt("project.id"),rs.getString("project.name"),rs.getString("project.description"),user, null);
     }
     
 }

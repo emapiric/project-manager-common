@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -21,6 +23,10 @@ public class User implements GenericEntity{
     private String email;
 
     public User() {
+    }
+    
+    public User(int id) {
+        this.id = id;
     }
 
     public User(int id, String firstname, String lastname, String username, String password, String email) {
@@ -142,5 +148,15 @@ public class User implements GenericEntity{
     @Override
     public String getWhereCondition() {
         return "id="+id;
+    }
+
+    @Override
+    public String getJoin() {
+        return "";
+    }
+
+    @Override
+    public GenericEntity getNewRecord(ResultSet rs) throws SQLException {
+        return new User(rs.getInt("user.id"),rs.getString("user.firstname"),rs.getString("user.lastname"),rs.getString("user.username"),rs.getString("user.password"),rs.getString("user.email"));
     }
 }

@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public interface GenericEntity extends Serializable {
 
@@ -20,4 +22,8 @@ public interface GenericEntity extends Serializable {
     String setAtrValue();
     
     String getWhereCondition();
+    
+    String getJoin();
+    
+    GenericEntity getNewRecord(ResultSet rs) throws SQLException;
 }

@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 import java.util.Objects;
 
@@ -25,6 +27,10 @@ public class ProjectTask implements GenericEntity{
 
     public ProjectTask() {
     }
+    
+    public ProjectTask(int id) {
+        this.id = id;
+    }
 
     public ProjectTask(int id, Project project, Date createdOn, String description, Task task, User assignee, Status status, User author) {
         this.id = id;
@@ -35,6 +41,10 @@ public class ProjectTask implements GenericEntity{
         this.assignee = assignee;
         this.status = status;
         this.author = author;
+    }
+    
+    public ProjectTask(Project project) {
+        this.project = project;
     }
 
     public int getId() {
@@ -183,6 +193,21 @@ public class ProjectTask implements GenericEntity{
     @Override
     public String getWhereCondition() {
         return "id="+id;
+    }
+
+    @Override
+    public String getJoin() {
+        return " INNER JOIN USER o ON (project_task.authorId = o.id) INNER JOIN USER a ON(project_task.assigneeId = a.id)" +
+                " INNER JOIN task t ON (project_task.taskId = t.id) INNER JOIN project p ON (project_task.projectId = p.id)";
+    }
+
+    @Override
+    public GenericEntity getNewRecord(ResultSet rs) throws SQLException {
+        User owner = new User(rs.getInt("o.id"),rs.getString("o.firstname"),rs.getString("o.lastname"),rs.getString("o.username"),rs.getString("o.password"),rs.getString("o.email"));
+        Project project = new Project(rs.getInt("p.id"),rs.getString("p.name"),rs.getString("p.description"),owner, null);
+        User assignee = new User(rs.getInt("a.id"),rs.getString("a.firstname"),rs.getString("a.lastname"),rs.getString("a.username"),rs.getString("a.password"),rs.getString("a.email"));
+        Task task = new Task(rs.getInt("t.id"),rs.getString("t.name"),rs.getString("t.description"));
+        return new ProjectTask(rs.getInt("project_task.id"),project,rs.getDate("project_task.createdOn"),rs.getString("project_task.description"),task,assignee,Status.values()[rs.getInt("statusId")],owner);
     }
     
     

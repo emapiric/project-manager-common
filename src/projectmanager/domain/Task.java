@@ -6,6 +6,8 @@
 package projectmanager.domain;
 
 import java.io.Serializable;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Objects;
 
 /**
@@ -18,6 +20,10 @@ public class Task implements GenericEntity{
     private String description;
 
     public Task() {
+    }
+    
+    public Task(int id) {
+        this.id = id;
     }
 
     public Task(int id, String name, String description) {
@@ -111,6 +117,16 @@ public class Task implements GenericEntity{
     @Override
     public String getWhereCondition() {
         return "id="+id;
+    }
+
+    @Override
+    public String getJoin() {
+        return "";
+    }
+
+    @Override
+    public GenericEntity getNewRecord(ResultSet rs) throws SQLException {
+        return new Task(rs.getInt("id"),rs.getString("name"),rs.getString("description"));
     }
     
     
