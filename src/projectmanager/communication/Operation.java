@@ -19,6 +19,7 @@ public enum Operation  implements Serializable{
     EDIT_PROJECT_TASK,
     DELETE_PROJECT_TASK,
     GET_ALL_TASKS,
-    GET_PROJECT_TASK_BY_ID
+    GET_PROJECT_TASK_BY_ID,
+    LOGOUT
     
 }
