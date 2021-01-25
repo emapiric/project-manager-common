@@ -10,7 +10,6 @@ import java.io.Serializable;
 public enum Operation  implements Serializable{
     LOGIN,
     GET_ALL_USERS,
-    GET_USER_BY_ID,
     GET_ALL_PROJECTS,
     ADD_PROJECT,
     EDIT_PROJECT,
@@ -20,7 +19,6 @@ public enum Operation  implements Serializable{
     EDIT_PROJECT_TASK,
     DELETE_PROJECT_TASK,
     GET_ALL_TASKS,
-    GET_TASK_BY_ID,
     GET_PROJECT_TASK_BY_ID
     
 }
