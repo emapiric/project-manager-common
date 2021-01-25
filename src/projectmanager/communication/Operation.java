@@ -21,5 +21,6 @@ public enum Operation  implements Serializable{
     DELETE_PROJECT_TASK,
     GET_ALL_TASKS,
     GET_TASK_BY_ID,
+    GET_PROJECT_TASK_BY_ID
     
 }

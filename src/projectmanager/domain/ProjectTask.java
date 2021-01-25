@@ -47,6 +47,11 @@ public class ProjectTask implements GenericEntity{
         this.project = project;
     }
 
+    public ProjectTask(int id, Project project) {
+        this.id = id;
+        this.project = project;
+    }
+
     public int getId() {
         return id;
     }
@@ -192,8 +197,9 @@ public class ProjectTask implements GenericEntity{
 
     @Override
     public String getWhereCondition() {
-        return "id="+id;
+        return "project_task.id="+id+" AND project_task.projectId="+project.getId();
     }
+    
 
     @Override
     public String getJoin() {
